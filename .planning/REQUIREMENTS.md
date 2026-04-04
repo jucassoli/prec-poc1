@@ -134,23 +134,62 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01..05 | Phase 1 | Pending |
-| ESAJ-01..07 | Phase 2 | Pending |
-| CAC-01..03 | Phase 2 | Pending |
-| DATJ-01..03 | Phase 2 | Pending |
-| PERS-01..06 | Phase 1 | Pending |
-| CACHE-01..02 | Phase 3 | Pending |
-| SCOR-01..04 | Phase 3 | Pending |
-| PROS-01..08 | Phase 4 | Pending |
-| API-01..05 | Phase 4 | Pending |
-| API-06..09 | Phase 2 | Pending |
-| API-10..12 | Phase 5 | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
+| INFRA-05 | Phase 1 | Pending |
+| PERS-01 | Phase 1 | Pending |
+| PERS-02 | Phase 1 | Pending |
+| PERS-03 | Phase 1 | Pending |
+| PERS-04 | Phase 1 | Pending |
+| PERS-05 | Phase 1 | Pending |
+| PERS-06 | Phase 1 | Pending |
+| ESAJ-01 | Phase 2 | Pending |
+| ESAJ-02 | Phase 2 | Pending |
+| ESAJ-03 | Phase 2 | Pending |
+| ESAJ-04 | Phase 2 | Pending |
+| ESAJ-05 | Phase 2 | Pending |
+| ESAJ-06 | Phase 2 | Pending |
+| ESAJ-07 | Phase 2 | Pending |
+| CAC-01 | Phase 2 | Pending |
+| CAC-02 | Phase 2 | Pending |
+| CAC-03 | Phase 2 | Pending |
+| DATJ-01 | Phase 2 | Pending |
+| DATJ-02 | Phase 2 | Pending |
+| DATJ-03 | Phase 2 | Pending |
+| API-06 | Phase 2 | Pending |
+| API-07 | Phase 2 | Pending |
+| API-08 | Phase 2 | Pending |
+| API-09 | Phase 2 | Pending |
+| CACHE-01 | Phase 3 | Pending |
+| CACHE-02 | Phase 3 | Pending |
+| SCOR-01 | Phase 3 | Pending |
+| SCOR-02 | Phase 3 | Pending |
+| SCOR-03 | Phase 3 | Pending |
+| SCOR-04 | Phase 3 | Pending |
+| PROS-01 | Phase 4 | Pending |
+| PROS-02 | Phase 4 | Pending |
+| PROS-03 | Phase 4 | Pending |
+| PROS-04 | Phase 4 | Pending |
+| PROS-05 | Phase 4 | Pending |
+| PROS-06 | Phase 4 | Pending |
+| PROS-07 | Phase 4 | Pending |
+| PROS-08 | Phase 4 | Pending |
+| API-01 | Phase 4 | Pending |
+| API-02 | Phase 4 | Pending |
+| API-03 | Phase 4 | Pending |
+| API-04 | Phase 4 | Pending |
+| API-05 | Phase 4 | Pending |
+| API-10 | Phase 5 | Pending |
+| API-11 | Phase 5 | Pending |
+| API-12 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 47 total
-- Mapped to phases: 47
+- v1 requirements: 50 total
+- Mapped to phases: 50
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-04*
-*Last updated: 2026-04-04 after initial definition*
+*Last updated: 2026-04-03 after roadmap creation — traceability expanded to per-requirement rows*
