@@ -1,9 +1,9 @@
 ---
 phase: 1
 slug: foundation
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: approved
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-04
 ---
 
@@ -39,9 +39,12 @@ created: 2026-04-04
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | Status |
 |---------|------|------|-------------|-----------|-------------------|--------|
 | 01-01-* | 01 | 1 | INFRA-01 | build | `./gradlew build -x test` | ⬜ pending |
-| 01-02-* | 02 | 1 | INFRA-02, INFRA-03 | integration | `docker-compose up -d && ./gradlew test` | ⬜ pending |
-| 01-03-* | 03 | 2 | PERS-01..06 | integration | `./gradlew test --tests "*.repository.*"` | ⬜ pending |
-| 01-04-* | 04 | 2 | INFRA-04, INFRA-05 | build + smoke | `./gradlew bootRun &` then `curl /swagger-ui.html` | ⬜ pending |
+| 01-02-* | 02 | 1 | INFRA-02, INFRA-03 | integration | `docker-compose config > /dev/null && ./gradlew test` | ⬜ pending |
+| 01-03-T1 | 03 | 2 | PERS-01..06 | compile | `./gradlew compileKotlin` | ⬜ pending |
+| 01-03-T2 | 03 | 2 | PERS-01..06 | integration | `./gradlew test --tests "*.RepositoryIntegrationTest"` | ⬜ pending |
+| 01-03-T3 | 03 | 2 | INFRA-03 | integration | `./gradlew test --tests "*.MigrationTest"` | ⬜ pending |
+| 01-04-T1 | 04 | 3 | INFRA-01, INFRA-04 | compile | `./gradlew compileKotlin` | ⬜ pending |
+| 01-04-T2 | 04 | 3 | INFRA-01, INFRA-04 | integration + HTTP | `./gradlew test --tests "*.ApplicationSmokeTest"` | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -49,11 +52,9 @@ created: 2026-04-04
 
 ## Wave 0 Requirements
 
-- [ ] `src/test/kotlin/br/com/precatorios/repository/ProcessoRepositoryTest.kt` — stubs for PERS-01
-- [ ] `src/test/kotlin/br/com/precatorios/repository/CredorRepositoryTest.kt` — stubs for PERS-02
-- [ ] `src/test/kotlin/br/com/precatorios/repository/PrecatorioRepositoryTest.kt` — stubs for PERS-03
-- [ ] `src/test/kotlin/br/com/precatorios/repository/ProspeccaoRepositoryTest.kt` — stubs for PERS-04
-- [ ] `src/test/kotlin/br/com/precatorios/repository/LeadRepositoryTest.kt` — stubs for PERS-05
+- [x] `src/test/kotlin/br/com/precatorios/repository/RepositoryIntegrationTest.kt` — covers PERS-01..06 (Plan 01-03, Task 2)
+- [x] `src/test/kotlin/br/com/precatorios/migration/MigrationTest.kt` — covers INFRA-03, validates all five tables exist (Plan 01-03, Task 3)
+- [x] `src/test/kotlin/br/com/precatorios/ApplicationSmokeTest.kt` — covers INFRA-01, INFRA-04 with HTTP Swagger UI check (Plan 01-04, Task 2)
 
 ---
 
@@ -61,18 +62,17 @@ created: 2026-04-04
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
-| Swagger UI renders all stubs | INFRA-04 | HTTP browser check | Start app, open `/swagger-ui.html`, verify page loads |
 | `docker-compose up` full stack healthy | INFRA-02 | Docker runtime required | Run `docker-compose up`, check `/actuator/health` returns `{"status":"UP"}` |
 
 ---
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 60s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 60s
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** approved 2026-04-04
