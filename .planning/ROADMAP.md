@@ -30,13 +30,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Flyway applies all migrations automatically on startup; all five tables exist with correct schema
   4. All five JPA entities (Processo, Credor, Precatorio, Prospeccao, Lead) persist and retrieve correctly via repository tests
   5. Swagger UI is reachable at `/swagger-ui.html` (even with no endpoints yet beyond actuator)
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 01-01: Gradle project setup — Kotlin 2.3.x, Spring Boot 3.5.9, all dependencies in build.gradle.kts, JVM 21 toolchain
-- [ ] 01-02: Docker Compose + Flyway migrations — docker-compose.yml with health-checked PostgreSQL, V1__create_tables.sql for all five tables including JSONB columns
-- [ ] 01-03: JPA entities + repositories — Processo, Credor, Precatorio, Prospeccao, Lead entities with Spring Data repositories and repository-layer tests using Testcontainers
-- [ ] 01-04: Async infrastructure skeleton — AsyncConfig with named `prospeccaoExecutor` ThreadPoolTaskExecutor, GlobalExceptionHandler skeleton, SpringDoc OpenAPI config
+- [ ] 01-01-PLAN.md — Gradle project setup (Kotlin 2.2.0, Spring Boot 3.5.3, all dependencies, JVM 21 toolchain)
+- [ ] 01-02-PLAN.md — Docker Compose + Flyway migrations (health-checked PostgreSQL 17, V1__create_tables.sql)
+- [ ] 01-03-PLAN.md — JPA entities + repositories (five entities, five repos, Testcontainers 2.0 integration test)
+- [ ] 01-04-PLAN.md — Async infrastructure skeleton (AsyncConfig with prospeccaoExecutor, OpenApiConfig, GlobalExceptionHandler, smoke test)
 
 ### Phase 2: Scraper Layer
 **Goal**: Working e-SAJ, CAC/SCP, and DataJud scrapers validated against live TJ-SP infrastructure, with the four lookup REST endpoints that expose them — no business logic yet, just fetching and returning data
