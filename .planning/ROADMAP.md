@@ -33,10 +33,10 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 4 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Gradle project setup (Kotlin 2.2.0, Spring Boot 3.5.3, all dependencies, JVM 21 toolchain)
-- [ ] 01-02-PLAN.md — Docker Compose + Flyway migrations (health-checked PostgreSQL 17, V1__create_tables.sql)
-- [ ] 01-03-PLAN.md — JPA entities + repositories (five entities, five repos, Testcontainers 2.0 integration test)
-- [ ] 01-04-PLAN.md — Async infrastructure skeleton (AsyncConfig with prospeccaoExecutor, OpenApiConfig, GlobalExceptionHandler, smoke test)
+- [x] 01-01-PLAN.md — Gradle project setup (Kotlin 2.2.0, Spring Boot 3.5.3, all dependencies, JVM 21 toolchain)
+- [x] 01-02-PLAN.md — Docker Compose + Flyway migrations (health-checked PostgreSQL 17, V1__create_tables.sql)
+- [x] 01-03-PLAN.md — JPA entities + repositories (five entities, five repos, Testcontainers 2.0 integration test)
+- [x] 01-04-PLAN.md — Async infrastructure skeleton (AsyncConfig with prospeccaoExecutor, OpenApiConfig, GlobalExceptionHandler, smoke test)
 
 ### Phase 2: Scraper Layer
 **Goal**: Working e-SAJ, CAC/SCP, and DataJud scrapers validated against live TJ-SP infrastructure, with the four lookup REST endpoints that expose them — no business logic yet, just fetching and returning data
