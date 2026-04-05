@@ -49,14 +49,13 @@ Plans:
   4. `GET /api/v1/processo/buscar?nome=` returns process search results from e-SAJ
   5. All three scrapers enforce the 2s inter-request delay, retry with exponential backoff on failure, and pause 60s on HTTP 429
   6. CAC/SCP scraper completes a ViewState GET/POST cycle and returns precatório data without session errors
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: e-SAJ scraper — EsajScraper with Jsoup, centralized EsajSelectors constants, mandatory non-empty assertions, global rate limiter, Resilience4j retry; smoke test against live TJ-SP with known process number
-- [ ] 02-02: CAC/SCP scraper — CacScraper with Jsoup.newSession(), ViewState extraction, GET/POST cycle, session renewal on blank-form detection; live validation spike against CAC/SCP portal
-- [ ] 02-03: DataJud client — DataJudClient with WebClient, Elasticsearch DSL POST, configurable API key from application.yml, pagination handling
-- [ ] 02-04: Lookup endpoints — ProcessoController (GET processo/{numero}, GET processo/buscar), PrecatorioController (GET precatorio/{numero}), DataJudController (POST datajud/buscar) with DTOs and mappers
-**UI hint**: no
+- [ ] 02-01-PLAN.md — Resilience4j dependencies, ScraperProperties config binding, ResilienceConfig with per-scraper RateLimiter/Retry beans
+- [ ] 02-02-PLAN.md — EsajScraper with centralized EsajSelectors, graceful degradation, Resilience4j integration, unit tests with HTML fixtures
+- [ ] 02-03-PLAN.md — CacScraper with ViewState session management and DataJudClient with WebClient, unit tests
+- [ ] 02-04-PLAN.md — Lookup endpoints: ProcessoController, PrecatorioController, DataJudController with DTOs, input validation, controller tests
 
 ### Phase 3: Cache and Scoring
 **Goal**: Caffeine read-through cache wired to all three scrapers (24h TTL, no negative caching), and a fully configurable scoring engine that produces a 0–100 score with per-criterion breakdown for any precatório
@@ -184,4 +183,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 ---
 *Roadmap created: 2026-04-03*
-*Last updated: 2026-04-03 after initial creation*
+*Last updated: 2026-04-05 after Phase 2 planning*
