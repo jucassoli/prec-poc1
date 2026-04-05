@@ -124,3 +124,16 @@ Each task was committed atomically:
 ---
 *Phase: 01-foundation*
 *Completed: 2026-04-04*
+
+## Self-Check: PASSED
+
+- FOUND: src/main/kotlin/br/com/precatorios/config/AsyncConfig.kt
+- FOUND: src/main/kotlin/br/com/precatorios/config/OpenApiConfig.kt
+- FOUND: src/main/kotlin/br/com/precatorios/exception/GlobalExceptionHandler.kt
+- FOUND: src/main/kotlin/br/com/precatorios/exception/ErrorResponse.kt
+- FOUND: src/main/kotlin/br/com/precatorios/exception/ProcessoNaoEncontradoException.kt
+- FOUND: src/main/kotlin/br/com/precatorios/exception/ScrapingException.kt
+- FOUND: src/test/kotlin/br/com/precatorios/ApplicationSmokeTest.kt
+- FOUND commit: 55136f2 (Task 1 - config and exception classes)
+- FOUND commit: 3e6d4bb (Task 2 - smoke test)
+- FOUND commit: 00b954e (docs - SUMMARY.md)
