@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/precatorios
+    username: ${POSTGRES_USER:precatorios}
+    password: ${POSTGRES_PASSWORD:precatorios}
