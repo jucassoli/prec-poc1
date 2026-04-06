@@ -42,6 +42,23 @@ class GlobalExceptionHandler {
             .body(ErrorResponse(400, ex.message ?: "Requisicao invalida"))
     }
 
+    @ExceptionHandler(ProspeccaoNaoEncontradaException::class)
+    fun handleProspeccaoNaoEncontrada(
+        ex: ProspeccaoNaoEncontradaException,
+        request: HttpServletRequest
+    ): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(404, ex.message ?: "Prospeccao nao encontrada"))
+    }
+
+    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValid(ex: org.springframework.web.bind.MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+        val message = ex.bindingResult.fieldErrors.joinToString("; ") { "${it.field}: ${it.defaultMessage}" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(400, message))
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleGeneric(
         ex: Exception,
