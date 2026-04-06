@@ -87,9 +87,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Flyway V2 migration (leadsQualificados), ProspeccaoLeadPersistenceHelper with REQUIRES_NEW transactions, ProspeccaoService, BFS engine core with @Async dispatch and partial-failure isolation
-- [ ] 04-02-PLAN.md — BFS filters (entidadesDevedoras, valorMinimo, apenasAlimentar, apenasPendentes), depth control (profundidadeMaxima), maxCredores early-exit, maxSearchResults config
-- [ ] 04-03-PLAN.md — ProspeccaoController with POST (202 + id), GET status (Retry-After, counters, leads on CONCLUIDA, erroMensagem on ERRO), GET list with pagination and status filter; DTOs, CNJ validation
+- [x] 04-01-PLAN.md — Flyway V2 migration (leadsQualificados), ProspeccaoLeadPersistenceHelper with REQUIRES_NEW transactions, ProspeccaoService, BFS engine core with @Async dispatch and partial-failure isolation
+- [x] 04-02-PLAN.md — BFS filters (entidadesDevedoras, valorMinimo, apenasAlimentar, apenasPendentes), depth control (profundidadeMaxima), maxCredores early-exit, maxSearchResults config
+- [x] 04-03-PLAN.md — ProspeccaoController with POST (202 + id), GET status (Retry-After, counters, leads on CONCLUIDA, erroMensagem on ERRO), GET list with pagination and status filter; DTOs, CNJ validation
 
 ### Phase 5: Leads API and Hardening
 **Goal**: The leads management endpoints (filtered list, contact status updates, structured error responses) are live; the full stack is covered by Testcontainers integration tests; operational concerns (stale job recovery, DataJud health check) are addressed
