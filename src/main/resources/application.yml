@@ -42,6 +42,7 @@ prospeccao:
   profundidade-maxima-default: 2
   max-credores-default: 50
   thread-pool-size: 4
+  max-search-results-per-creditor: 10
 
 scoring:
   valor:

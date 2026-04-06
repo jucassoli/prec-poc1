@@ -195,8 +195,9 @@ class BfsProspeccaoEngine(
     }
 
     /**
-     * Filter predicate — accepts all leads in plan 01 core engine.
-     * Plan 02 (filters/depth) adds the actual filter logic here.
+     * Filter predicate — D-09: filters applied during BFS traversal.
+     * Non-matching leads are not scored or persisted.
+     * Filters only affect lead creation, NOT BFS expansion (D-10).
      */
     private fun passaFiltros(
         precatorio: Precatorio,
@@ -204,5 +205,18 @@ class BfsProspeccaoEngine(
         valorMinimo: BigDecimal?,
         apenasAlimentar: Boolean?,
         apenasPendentes: Boolean?
-    ): Boolean = true
+    ): Boolean {
+        // entidadesDevedoras: if filter specified, precatorio.entidadeDevedora must contain at least one
+        if (!entidadesDevedoras.isNullOrEmpty()) {
+            val devedora = precatorio.entidadeDevedora?.uppercase() ?: return false
+            if (entidadesDevedoras.none { devedora.contains(it.uppercase()) }) return false
+        }
+        // valorMinimo: precatorio.valorAtualizado must be >= valorMinimo
+        if (valorMinimo != null && (precatorio.valorAtualizado == null || precatorio.valorAtualizado!! < valorMinimo)) return false
+        // apenasAlimentar: precatorio.natureza must contain "ALIMENTAR"
+        if (apenasAlimentar == true && precatorio.natureza?.uppercase()?.contains("ALIMENTAR") != true) return false
+        // apenasPendentes: precatorio.statusPagamento must be "PENDENTE" (case-insensitive)
+        if (apenasPendentes == true && precatorio.statusPagamento?.uppercase() != "PENDENTE") return false
+        return true
+    }
 }
