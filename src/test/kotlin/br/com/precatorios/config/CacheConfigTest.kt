@@ -11,6 +11,7 @@ import br.com.precatorios.scraper.ParteScraped
 import br.com.precatorios.scraper.PrecatorioScraped
 import br.com.precatorios.scraper.ProcessoScraped
 import com.ninjasquad.springmockk.SpykBean
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
@@ -90,8 +91,9 @@ class CacheConfigTest {
     )
 
     @BeforeEach
-    fun clearCaches() {
+    fun clearCachesAndMockState() {
         cacheManager.cacheNames.forEach { cacheManager.getCache(it)?.clear() }
+        clearAllMocks(answers = false)
     }
 
     @Test

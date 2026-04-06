@@ -1,5 +1,6 @@
 package br.com.precatorios.scraper
 
+import br.com.precatorios.config.CacheNames
 import br.com.precatorios.config.ScraperProperties
 import br.com.precatorios.exception.ScrapingException
 import io.github.resilience4j.ratelimiter.RateLimiter
@@ -9,6 +10,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 data class PrecatorioScraped(
@@ -41,6 +43,7 @@ class CacScraper(
      * Applies rate limiting and retry via Resilience4j programmatic decoration.
      * Renews session on blank-form response with max 1 renewal before failing.
      */
+    @Cacheable(cacheNames = [CacheNames.PRECATORIOS], unless = "#result == null")
     fun fetchPrecatorio(numero: String): PrecatorioScraped {
         val retryDecorated = Retry.decorateCheckedSupplier(cacRetry) { doFetchPrecatorio(numero) }
         val decorated = RateLimiter.decorateCheckedSupplier(cacRateLimiter, retryDecorated)

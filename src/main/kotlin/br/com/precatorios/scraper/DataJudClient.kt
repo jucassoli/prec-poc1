@@ -1,5 +1,6 @@
 package br.com.precatorios.scraper
 
+import br.com.precatorios.config.CacheNames
 import br.com.precatorios.config.ScraperProperties
 import br.com.precatorios.exception.ScrapingException
 import br.com.precatorios.exception.TooManyRequestsException
@@ -10,6 +11,7 @@ import io.github.resilience4j.ratelimiter.RateLimiter
 import io.github.resilience4j.retry.Retry
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -106,6 +108,7 @@ class DataJudClient(
      * Search DataJud for processes by CNJ process number.
      * Applies rate limiting and retry via Resilience4j programmatic decoration.
      */
+    @Cacheable(cacheNames = [CacheNames.DATAJUD], unless = "#result == null")
     fun buscarPorNumeroProcesso(numero: String): DataJudResult {
         val retryDecorated = Retry.decorateCheckedSupplier(datajudRetry) { doBuscarPorNumero(numero) }
         val decorated = RateLimiter.decorateCheckedSupplier(datajudRateLimiter, retryDecorated)

@@ -1,5 +1,6 @@
 package br.com.precatorios.scraper
 
+import br.com.precatorios.config.CacheNames
 import br.com.precatorios.config.ScraperProperties
 import br.com.precatorios.exception.TooManyRequestsException
 import io.github.resilience4j.ratelimiter.RateLimiter
@@ -8,6 +9,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 // ---------------------------------------------------------------------------
@@ -65,6 +67,7 @@ class EsajScraper(
      * Applies rate limiting and retry via Resilience4j programmatic decoration.
      * Returns partial data (null fields + missingFields list) on selector mismatches — never throws on missing HTML.
      */
+    @Cacheable(cacheNames = [CacheNames.PROCESSOS], unless = "#result == null")
     fun fetchProcesso(numero: String): ProcessoScraped {
         val retryDecorated = Retry.decorateCheckedSupplier(esajRetry) { doFetchProcesso(numero) }
         val decorated = RateLimiter.decorateCheckedSupplier(esajRateLimiter, retryDecorated)
