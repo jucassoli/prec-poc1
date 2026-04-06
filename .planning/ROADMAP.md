@@ -52,26 +52,26 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Resilience4j dependencies, ScraperProperties config binding, ResilienceConfig with per-scraper RateLimiter/Retry beans
-- [ ] 02-02-PLAN.md — EsajScraper with centralized EsajSelectors, graceful degradation, Resilience4j integration, unit tests with HTML fixtures
-- [ ] 02-03-PLAN.md — CacScraper with ViewState session management and DataJudClient with WebClient, unit tests
-- [ ] 02-04-PLAN.md — Lookup endpoints: ProcessoController, PrecatorioController, DataJudController with DTOs, input validation, controller tests
+- [x] 02-01-PLAN.md — Resilience4j dependencies, ScraperProperties config binding, ResilienceConfig with per-scraper RateLimiter/Retry beans
+- [x] 02-02-PLAN.md — EsajScraper with centralized EsajSelectors, graceful degradation, Resilience4j integration, unit tests with HTML fixtures
+- [x] 02-03-PLAN.md — CacScraper with ViewState session management and DataJudClient with WebClient, unit tests
+- [x] 02-04-PLAN.md — Lookup endpoints: ProcessoController, PrecatorioController, DataJudController with DTOs, input validation, controller tests
 
 ### Phase 3: Cache and Scoring
-**Goal**: Caffeine read-through cache wired to all three scrapers (24h TTL, no negative caching), and a fully configurable scoring engine that produces a 0–100 score with per-criterion breakdown for any precatório
+**Goal**: Caffeine read-through cache wired to all three scrapers (24h TTL, no negative caching), and a fully configurable scoring engine that produces a 0-100 score with per-criterion breakdown for any precatorio
 **Depends on**: Phase 2
 **Requirements**: CACHE-01, CACHE-02, SCOR-01, SCOR-02, SCOR-03, SCOR-04
 **Success Criteria** (what must be TRUE):
   1. A second identical request to e-SAJ or CAC/SCP within 24h is served from Caffeine cache without any outbound HTTP call
-  2. Cache is keyed by process/precatório number so two different callers looking up the same number share the cached result
-  3. ScoringService returns a score 0–100 with a `scoreDetalhes` map showing the contribution of each of the five criteria (value, debtor entity, payment status, chronological position, nature)
+  2. Cache is keyed by process/precatorio number so two different callers looking up the same number share the cached result
+  3. ScoringService returns a score 0-100 with a `scoreDetalhes` map showing the contribution of each of the five criteria (value, debtor entity, payment status, chronological position, nature)
   4. Changing a scoring weight in `application.yml` and restarting changes the score without any code modification
   5. Leads scoring 0 across all criteria are persisted but excluded from default lead list results
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Caffeine cache config — CacheConfig bean with three named caches (processos, precatorios, datajud), @Cacheable on scraper methods, `unless = "#result == null"` guard, cache key strategy
-- [ ] 03-02: ScoringService — pure stateless function reading weights from application.yml ScoringProperties, five-criterion calculation, scoreDetalhes breakdown, unit tests covering all weight combinations
+- [ ] 03-01-PLAN.md — CacheConfig with CaffeineCacheManager (three named caches, 24h TTL), @Cacheable on three scraper fetch methods, cache integration test
+- [ ] 03-02-PLAN.md — ScoringProperties config, ScoringService with five-criterion scoring, application.yml scoring section, unit tests, LeadRepository score filter
 
 ### Phase 4: BFS Prospection Engine and Prospection API
 **Goal**: A working async BFS prospection engine that starts from a seed process, recursively discovers co-creditors up to configurable depth, scores each lead, and persists results — exposed via the five prospection REST endpoints with 202/polling contract
@@ -111,7 +111,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -183,4 +183,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 ---
 *Roadmap created: 2026-04-03*
-*Last updated: 2026-04-05 after Phase 2 planning*
+*Last updated: 2026-04-06 after Phase 3 planning*
