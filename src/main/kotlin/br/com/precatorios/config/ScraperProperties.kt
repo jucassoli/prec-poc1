@@ -1,9 +1,7 @@
 package br.com.precatorios.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.context.annotation.Configuration
 
-@Configuration
 @ConfigurationProperties(prefix = "scraper")
 data class ScraperProperties(
     val esaj: EsajProps = EsajProps(),
