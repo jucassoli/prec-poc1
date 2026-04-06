@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Processos - e-SAJ</title>
+</head>
+<body>
+
+<!-- Process header fields matching EsajSelectors constants -->
+<div id="processoTitle">
+    <span id="classeProcesso">Procedimento Comum</span>
+    <span id="assuntoProcesso">Precatorio</span>
+    <span id="foroProcesso">Foro Central</span>
+    <span id="varaProcesso">1a Vara da Fazenda Publica</span>
+    <span id="juizProcesso">Dr. Teste Silva</span>
+    <span id="valorAcaoProcesso">R$ 150.000,00</span>
+</div>
+
+<!-- Parties table matching EsajSelectors.PARTES_TABLE and PARTE_NOME -->
+<table id="tablePartesPrincipais">
+    <tbody>
+        <tr>
+            <td>Reqte:</td>
+            <td>
+                <span class="nomeParteEAdvogado">JOAO DA SILVA</span>
+                <br/>
+                <span class="nomeParteEAdvogado">Advogado: DR. ADVOGADO TESTE - OAB/SP 12345</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Reqdo:</td>
+            <td>
+                <span class="nomeParteEAdvogado">FAZENDA DO ESTADO DE SAO PAULO</span>
+                <br/>
+                <span class="nomeParteEAdvogado">Advogado: DRA. PROCURADORA ESTADO - OAB/SP 67890</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Exequente:</td>
+            <td>
+                <span class="nomeParteEAdvogado">MARIA APARECIDA SANTOS</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Incidents table matching EsajSelectors.INCIDENTES_TABLE -->
+<table id="incidentes">
+    <tbody>
+        <tr>
+            <td><a href="/cpopg/show.do?processo.codigo=INC001">INC001</a></td>
+            <td>Embargos de Declaracao</td>
+        </tr>
+        <tr>
+            <td><a href="/cpopg/show.do?processo.codigo=INC002">INC002</a></td>
+            <td>Agravo Interno</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
