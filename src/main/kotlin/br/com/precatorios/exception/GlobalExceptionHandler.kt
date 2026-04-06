@@ -1,10 +1,11 @@
 package br.com.precatorios.exception
 
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import jakarta.servlet.http.HttpServletRequest
 
 @ControllerAdvice
 class GlobalExceptionHandler {
@@ -27,6 +28,18 @@ class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.SERVICE_UNAVAILABLE)
             .body(ErrorResponse(503, ex.message ?: "Erro ao acessar fonte de dados"))
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun handleConstraintViolation(ex: ConstraintViolationException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(400, ex.constraintViolations.joinToString("; ") { it.message }))
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgument(ex: IllegalArgumentException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(400, ex.message ?: "Requisicao invalida"))
     }
 
     @ExceptionHandler(Exception::class)
