@@ -49,6 +49,39 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
+resilience4j:
+  ratelimiter:
+    instances:
+      esaj:
+        limit-for-period: 1
+        limit-refresh-period: 2s
+        timeout-duration: 5s
+      cac:
+        limit-for-period: 1
+        limit-refresh-period: 2s
+        timeout-duration: 5s
+      datajud:
+        limit-for-period: 5
+        limit-refresh-period: 1s
+        timeout-duration: 3s
+  retry:
+    instances:
+      esaj:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2.0
+      cac:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2.0
+      datajud:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2.0
+
 management:
   endpoints:
     web:

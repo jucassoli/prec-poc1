@@ -38,6 +38,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
+    // Resilience4j — rate limiting and retry
+    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+
     // Scraping — HTML
     implementation("org.jsoup:jsoup:1.21.1")
 
