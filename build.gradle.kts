@@ -62,6 +62,7 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers-postgresql:2.0.4")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.4")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
