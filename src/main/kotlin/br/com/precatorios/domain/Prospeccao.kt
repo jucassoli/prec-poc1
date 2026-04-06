@@ -31,6 +31,9 @@ class Prospeccao {
     @Column(name = "processos_visitados")
     var processosVisitados: Int = 0
 
+    @Column(name = "leads_qualificados")
+    var leadsQualificados: Int = 0
+
     @Column(name = "data_inicio")
     var dataInicio: LocalDateTime? = null
 
