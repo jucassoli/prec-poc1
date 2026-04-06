@@ -70,8 +70,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — CacheConfig with CaffeineCacheManager (three named caches, 24h TTL), @Cacheable on three scraper fetch methods, cache integration test
-- [ ] 03-02-PLAN.md — ScoringProperties config, ScoringService with five-criterion scoring, application.yml scoring section, unit tests, LeadRepository score filter
+- [x] 03-01-PLAN.md — CacheConfig with CaffeineCacheManager (three named caches, 24h TTL), @Cacheable on three scraper fetch methods, cache integration test
+- [x] 03-02-PLAN.md — ScoringProperties config, ScoringService with five-criterion scoring, application.yml scoring section, unit tests, LeadRepository score filter
 
 ### Phase 4: BFS Prospection Engine and Prospection API
 **Goal**: A working async BFS prospection engine that starts from a seed process, recursively discovers co-creditors up to configurable depth, scores each lead, and persists results — exposed via the five prospection REST endpoints with 202/polling contract
