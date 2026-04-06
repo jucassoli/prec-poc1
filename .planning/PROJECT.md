@@ -15,18 +15,18 @@ Given a seed process number, automatically return a scored list of qualified pre
 - [x] Persist processes, creditors, precatórios, prospection runs, and leads in PostgreSQL via JPA/Flyway — *Validated in Phase 1: Foundation*
 - [x] Expose Swagger UI at `/swagger-ui.html` for endpoint exploration — *Validated in Phase 1: Foundation*
 - [x] Package with Docker Compose (API + PostgreSQL) — *Validated in Phase 1: Foundation*
-- [x] Run prospections asynchronously with polling endpoint for status/results — *Async executor validated in Phase 1; endpoint pending Phase 4*
+- [x] Run prospections asynchronously with polling endpoint for status/results — *Validated in Phase 4: BFS Prospection Engine & API*
 - [x] Cache scraping results in-memory (Caffeine, 24h TTL) to avoid redundant requests — *Validated in Phase 3: Cache and Scoring*
 - [x] Score leads 0–100 based on precatório value, debtor entity, payment status, chronological position, and nature — *Validated in Phase 3: Cache and Scoring*
 - [x] Scoring rules configurable via `application.yml` — *Validated in Phase 3: Cache and Scoring*
 
 ### Active
 
-- [ ] Accept a seed process number and run recursive prospecting up to configurable depth
+- [x] Accept a seed process number and run recursive prospecting up to configurable depth — *Validated in Phase 4: BFS Prospection Engine & API*
 - [ ] Scrape e-SAJ (public) for process parties, precatório incidents, and procedural updates using Jsoup
 - [ ] Scrape CAC/SCP portal (ASP.NET/ViewState) for precatório value, payment status, and chronological position
 - [ ] Query DataJud API (CNJ Elasticsearch) for process metadata enrichment
-- [ ] Expose REST endpoints for prospection (async), process lookup, precatório lookup, DataJud proxy, and lead management
+- [x] Expose REST endpoints for prospection (async), process lookup, precatório lookup, DataJud proxy, and lead management — *Prospection endpoints validated in Phase 4; process/precatório/DataJud endpoints validated in Phase 1*
 - [ ] Respect rate limits: 2s delay between requests, exponential backoff on failures (3 retries), 60s pause on HTTP 429
 
 ### Out of Scope
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-06 after Phase 3: Cache and Scoring complete*
+*Last updated: 2026-04-06 after Phase 4: BFS Prospection Engine & API complete*
