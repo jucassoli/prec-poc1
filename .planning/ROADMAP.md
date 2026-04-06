@@ -84,12 +84,12 @@ Plans:
   4. `GET /api/v1/prospeccao/{id}` returns status `CONCLUIDA` with a full scored lead list once the BFS completes
   5. A prospection with a partial scraping failure (one process unreachable) completes with `CONCLUIDA` status and logs the failure in `erro_mensagem` — it does not abort entirely
   6. `GET /api/v1/prospeccao` lists all runs with pagination; filterable by status
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: BFS engine core — BfsProspeccaoEngine with @Async("prospeccaoExecutor"), job-local visited set, bounded ArrayDeque queue, maxCredores early-exit, partial-failure isolation with per-lead REQUIRES_NEW commits
-- [ ] 04-02: BFS filters and depth control — profundidadeMaxima, entidadesDevedoras, valorMinimo, apenasAlimentar, apenasPendentes filter application inside BFS loop; queue size cap; search result cap per creditor
-- [ ] 04-03: Prospection REST endpoints — ProspeccaoController with POST (202 + id), GET status (Retry-After header, progress counters, full lead list on CONCLUIDA, erroMensagem on ERRO), GET list with pagination; CNJ format validator
+- [ ] 04-01-PLAN.md — Flyway V2 migration (leadsQualificados), ProspeccaoLeadPersistenceHelper with REQUIRES_NEW transactions, ProspeccaoService, BFS engine core with @Async dispatch and partial-failure isolation
+- [ ] 04-02-PLAN.md — BFS filters (entidadesDevedoras, valorMinimo, apenasAlimentar, apenasPendentes), depth control (profundidadeMaxima), maxCredores early-exit, maxSearchResults config
+- [ ] 04-03-PLAN.md — ProspeccaoController with POST (202 + id), GET status (Retry-After, counters, leads on CONCLUIDA, erroMensagem on ERRO), GET list with pagination and status filter; DTOs, CNJ validation
 
 ### Phase 5: Leads API and Hardening
 **Goal**: The leads management endpoints (filtered list, contact status updates, structured error responses) are live; the full stack is covered by Testcontainers integration tests; operational concerns (stale job recovery, DataJud health check) are addressed
@@ -183,4 +183,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 ---
 *Roadmap created: 2026-04-03*
-*Last updated: 2026-04-06 after Phase 3 planning*
+*Last updated: 2026-04-06 after Phase 4 planning*
