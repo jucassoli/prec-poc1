@@ -16,6 +16,9 @@ Given a seed process number, automatically return a scored list of qualified pre
 - [x] Expose Swagger UI at `/swagger-ui.html` for endpoint exploration — *Validated in Phase 1: Foundation*
 - [x] Package with Docker Compose (API + PostgreSQL) — *Validated in Phase 1: Foundation*
 - [x] Run prospections asynchronously with polling endpoint for status/results — *Async executor validated in Phase 1; endpoint pending Phase 4*
+- [x] Cache scraping results in-memory (Caffeine, 24h TTL) to avoid redundant requests — *Validated in Phase 3: Cache and Scoring*
+- [x] Score leads 0–100 based on precatório value, debtor entity, payment status, chronological position, and nature — *Validated in Phase 3: Cache and Scoring*
+- [x] Scoring rules configurable via `application.yml` — *Validated in Phase 3: Cache and Scoring*
 
 ### Active
 
@@ -23,11 +26,8 @@ Given a seed process number, automatically return a scored list of qualified pre
 - [ ] Scrape e-SAJ (public) for process parties, precatório incidents, and procedural updates using Jsoup
 - [ ] Scrape CAC/SCP portal (ASP.NET/ViewState) for precatório value, payment status, and chronological position
 - [ ] Query DataJud API (CNJ Elasticsearch) for process metadata enrichment
-- [ ] Score leads 0–100 based on precatório value, debtor entity, payment status, chronological position, and nature
 - [ ] Expose REST endpoints for prospection (async), process lookup, precatório lookup, DataJud proxy, and lead management
-- [ ] Cache scraping results in-memory (Caffeine, 24h TTL) to avoid redundant requests
 - [ ] Respect rate limits: 2s delay between requests, exponential backoff on failures (3 retries), 60s pause on HTTP 429
-- [ ] Scoring rules configurable via `application.yml`
 
 ### Out of Scope
 
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-05 after Phase 1: Foundation complete*
+*Last updated: 2026-04-06 after Phase 3: Cache and Scoring complete*
