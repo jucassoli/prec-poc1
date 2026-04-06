@@ -43,6 +43,57 @@ prospeccao:
   max-credores-default: 50
   thread-pool-size: 4
 
+scoring:
+  valor:
+    max-pontos: 30
+    faixas:
+      - limite-inferior: 1000000
+        pontos: 30
+      - limite-inferior: 500000
+        pontos: 22
+      - limite-inferior: 150000
+        pontos: 15
+      - limite-inferior: 50000
+        pontos: 8
+      - limite-inferior: 0
+        pontos: 3
+  entidade-devedora:
+    max-pontos: 25
+    pontos-desconhecida: 5
+    mapa:
+      "FAZENDA DO ESTADO DE SAO PAULO": 25
+      "PREFEITURA DO MUNICIPIO DE SAO PAULO": 20
+  status-pagamento:
+    max-pontos: 20
+    pontos-padrao: 0
+    mapa:
+      PENDENTE: 20
+      "EM PROCESSAMENTO": 15
+      "PARCIALMENTE PAGO": 10
+      PAGO: 0
+  posicao-cronologica:
+    max-pontos: 15
+    faixas:
+      - limite-inferior: 1
+        limite-superior: 100
+        pontos: 15
+      - limite-inferior: 101
+        limite-superior: 500
+        pontos: 12
+      - limite-inferior: 501
+        limite-superior: 1000
+        pontos: 8
+      - limite-inferior: 1001
+        limite-superior: 5000
+        pontos: 4
+      - limite-inferior: 5001
+        limite-superior: 2147483647
+        pontos: 1
+  natureza:
+    max-pontos: 10
+    pontos-alimentar: 10
+    pontos-comum: 4
+
 springdoc:
   api-docs:
     path: /api-docs
