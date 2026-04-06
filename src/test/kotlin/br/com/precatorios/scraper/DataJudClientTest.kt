@@ -215,9 +215,15 @@ class DataJudClientTest {
 
     @Test
     fun `buscarPorNumeroProcesso should throw TooManyRequestsException on HTTP 429`() {
-        mockWebServer.enqueue(
-            MockResponse().setResponseCode(429)
-        )
+        // Enqueue enough 429 responses for all retry attempts
+        repeat(3) {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(429)
+                    .setBody("{\"error\":\"rate limit exceeded\"}")
+                    .addHeader("Content-Type", "application/json")
+            )
+        }
 
         assertThrows(TooManyRequestsException::class.java) {
             client.buscarPorNumeroProcesso("1234567-89.2023.8.26.0100")
