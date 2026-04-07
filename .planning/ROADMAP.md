@@ -101,12 +101,12 @@ Plans:
   3. All API errors (404, 400, 500, scraping failures) return structured JSON with `status`, `message`, and `timestamp` — no stack traces in responses
   4. Testcontainers integration test starts PostgreSQL, runs migrations, executes a full prospection with mock scrapers, and asserts scored leads in the database
   5. On application startup, any `EM_ANDAMENTO` jobs left from a previous crashed run are reset to `ERRO` with a recovery message
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: Leads REST endpoints — LeadController with GET /leads (JOIN FETCH query, pagination, filters, score DESC default sort), PATCH /leads/{id}/status; LeadService with CredorRepository JOIN FETCH to avoid N+1
-- [ ] 05-02: Error handling hardening — GlobalExceptionHandler with @ControllerAdvice covering ScrapingException, ProcessoNaoEncontradoException, MethodArgumentNotValidException, generic 500; structured ErrorResponse DTO
-- [ ] 05-03: Integration tests and operational hardening — Testcontainers 2.0 full-stack test with @ServiceConnection, startup recovery for stale EM_ANDAMENTO jobs, DataJud health indicator, smoke test suite tagged @IntegrationLive
+- [ ] 05-01-PLAN.md — Leads REST endpoints (LeadController GET /leads with JOIN FETCH, pagination, filters, PATCH /leads/{id}/status)
+- [ ] 05-02-PLAN.md — Error handling hardening (TooManyRequestsException 429, HttpMessageNotReadableException 400, comprehensive tests)
+- [ ] 05-03-PLAN.md — Integration tests and operational hardening (Testcontainers full-stack test, StaleJobRecoveryRunner, DataJudHealthIndicator)
 
 ## Progress
 
