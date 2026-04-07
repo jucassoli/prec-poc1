@@ -29,10 +29,12 @@ class LeadService(
             maxOf(scoreMinimo ?: 0, 1)
         }
 
+        val entidadeDevedoraPattern = entidadeDevedora?.lowercase()?.let { "%$it%" }
+
         return leadRepository.findLeadsFiltered(
             effectiveScoreMinimo,
             statusContato,
-            entidadeDevedora,
+            entidadeDevedoraPattern,
             pageable
         ).map { LeadResponseDTO.fromEntity(it, objectMapper) }
     }

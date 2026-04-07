@@ -21,7 +21,7 @@ interface LeadRepository : JpaRepository<Lead, Long> {
             JOIN FETCH l.precatorio p
             WHERE (:scoreMinimo IS NULL OR l.score >= :scoreMinimo)
               AND (:statusContato IS NULL OR l.statusContato = :statusContato)
-              AND (:entidadeDevedora IS NULL OR LOWER(p.entidadeDevedora) LIKE LOWER(CONCAT('%', :entidadeDevedora, '%')))
+              AND (:entidadeDevedoraPattern IS NULL OR LOWER(p.entidadeDevedora) LIKE :entidadeDevedoraPattern)
             ORDER BY l.score DESC
         """,
         countQuery = """
@@ -29,13 +29,13 @@ interface LeadRepository : JpaRepository<Lead, Long> {
             JOIN l.precatorio p
             WHERE (:scoreMinimo IS NULL OR l.score >= :scoreMinimo)
               AND (:statusContato IS NULL OR l.statusContato = :statusContato)
-              AND (:entidadeDevedora IS NULL OR LOWER(p.entidadeDevedora) LIKE LOWER(CONCAT('%', :entidadeDevedora, '%')))
+              AND (:entidadeDevedoraPattern IS NULL OR LOWER(p.entidadeDevedora) LIKE :entidadeDevedoraPattern)
         """
     )
     fun findLeadsFiltered(
         @Param("scoreMinimo") scoreMinimo: Int?,
         @Param("statusContato") statusContato: StatusContato?,
-        @Param("entidadeDevedora") entidadeDevedora: String?,
+        @Param("entidadeDevedoraPattern") entidadeDevedoraPattern: String?,
         pageable: Pageable
     ): Page<Lead>
 }
