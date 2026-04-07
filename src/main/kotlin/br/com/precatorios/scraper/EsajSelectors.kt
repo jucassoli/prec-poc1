@@ -45,4 +45,9 @@ object EsajSelectors {
 
     const val SEARCH_RESULT_TABLE = "#listagemDeProcessos"
     const val SEARCH_NUMERO = "#numeroProcesso"
+    const val SEARCH_FORO_HEADER = "h2.foroDosProcessos"
+    const val SEARCH_RESULT_ITEM = "ul.unj-list-row > li"
+    const val SEARCH_PROCESS_LINK = "a.linkProcesso"
+    const val SEARCH_PROCESS_CLASS = ".classeProcesso"
+    const val SEARCH_PROCESS_SUBJECT = ".assuntoPrincipalProcesso"
 }

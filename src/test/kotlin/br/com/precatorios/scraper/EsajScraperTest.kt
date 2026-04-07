@@ -231,7 +231,7 @@ class EsajScraperTest {
         val result = scraper.parseBusca(doc)
 
         assertTrue(result[0].numero.isNotBlank(), "First result numero should not be blank")
-        assertEquals("1001234-56.2020.8.26.0100", result[0].numero)
+        assertEquals("0000023-85.1980.8.26.0053", result[0].numero)
     }
 
     @Test
@@ -239,7 +239,28 @@ class EsajScraperTest {
         val doc = Jsoup.parse(loadFixture("esaj_busca.html"))
         val result = scraper.parseBusca(doc)
 
-        assertEquals("Procedimento Comum", result[0].classe)
+        assertEquals("Procedimento Comum Cível", result[0].classe)
+    }
+
+    @Test
+    fun `buscarPorNome extracts process routing params from first result`() {
+        val doc = Jsoup.parse(loadFixture("esaj_busca.html"))
+        val result = scraper.parseBusca(doc)
+
+        assertEquals("1HZWQU9SN0000", result[0].processoCodigo)
+        assertEquals("53", result[0].processoForo)
+        assertEquals(
+            "https://esaj.tjsp.jus.br/cpopg/show.do?processo.codigo=1HZWQU9SN0000&processo.foro=53&cbPesquisa=NUMPROC",
+            result[0].urlEsaj
+        )
+    }
+
+    @Test
+    fun `buscarPorNome extracts foro from grouped search results`() {
+        val doc = Jsoup.parse(loadFixture("esaj_busca.html"))
+        val result = scraper.parseBusca(doc)
+
+        assertEquals("Foro Central - Fazenda Pública/Acidentes", result[0].foro)
     }
 
     @Test

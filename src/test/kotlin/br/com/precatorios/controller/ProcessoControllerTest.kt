@@ -107,6 +107,28 @@ class ProcessoControllerTest {
     }
 
     @Test
+    fun `GET processo buscar with numero routes to numero search`() {
+        every { esajScraper.buscarPorNumero(validNumero) } returns listOf(
+            BuscaResultado(
+                numero = validNumero,
+                classe = "Procedimento Comum",
+                assunto = "Precatorio",
+                foro = "Foro Central",
+                processoCodigo = "ABC123",
+                processoForo = "53"
+            )
+        )
+
+        mockMvc.get("/api/v1/processo/buscar") {
+            param("numero", validNumero)
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.resultados[0].numero") { value(validNumero) }
+            jsonPath("$.total") { value(1) }
+        }
+    }
+
+    @Test
     fun `GET processo buscar with no params returns 400`() {
         mockMvc.get("/api/v1/processo/buscar")
             .andExpect {

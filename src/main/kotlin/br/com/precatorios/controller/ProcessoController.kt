@@ -57,9 +57,12 @@ class ProcessoController(private val esajScraper: EsajScraper) {
         @RequestParam(required = false) cpf: String?,
         @RequestParam(required = false) numero: String?
     ): ResponseEntity<BuscaProcessoResponseDTO> {
-        val searchTerm = nome ?: cpf ?: numero
-            ?: throw IllegalArgumentException("Informe ao menos um parametro: nome, cpf ou numero")
-        val results = esajScraper.buscarPorNome(searchTerm)
+        val results = when {
+            numero != null -> esajScraper.buscarPorNumero(numero)
+            cpf != null -> esajScraper.buscarPorCpf(cpf)
+            nome != null -> esajScraper.buscarPorNome(nome)
+            else -> throw IllegalArgumentException("Informe ao menos um parametro: nome, cpf ou numero")
+        }
         return ResponseEntity.ok(
             BuscaProcessoResponseDTO(
                 resultados = results.map { BuscaProcessoItemDTO(it.numero, it.classe, it.assunto, it.foro) },
