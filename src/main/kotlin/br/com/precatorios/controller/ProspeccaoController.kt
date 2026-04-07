@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/prospeccao")
-@Tag(name = "Prospeccao", description = "BFS prospection engine endpoints")
+@Tag(name = "Prospecção", description = "Motor de prospecção BFS (Busca em Largura). Permite iniciar prospecções recursivas a partir de um processo-semente, acompanhar o progresso em tempo real e listar prospecções anteriores. Cada prospecção descobre co-credores, consulta precatórios e gera leads qualificados automaticamente.")
 class ProspeccaoController(
     private val prospeccaoService: ProspeccaoService,
     private val bfsProspeccaoEngine: BfsProspeccaoEngine,
@@ -40,7 +40,15 @@ class ProspeccaoController(
 ) {
 
     @PostMapping
-    @Operation(summary = "Iniciar prospeccao BFS a partir de processo-semente")
+    @Operation(
+        summary = "Iniciar prospecção BFS a partir de processo-semente",
+        description = "Cria e inicia uma prospecção assíncrona usando busca em largura (BFS). " +
+            "A partir do número do processo-semente, o sistema descobre recursivamente co-credores, " +
+            "consulta precatórios no CAC/SCP, enriquece dados via DataJud e gera leads com score automático. " +
+            "Retorna HTTP 202 (Accepted) com o ID da prospecção para acompanhamento via polling. " +
+            "Parâmetros opcionais permitem limitar profundidade, número máximo de credores, " +
+            "filtrar por entidade devedora, valor mínimo, natureza alimentar e status de pagamento pendente."
+    )
     fun iniciar(@RequestBody @Valid request: ProspeccaoRequestDTO): ResponseEntity<ProspeccaoIniciadaDTO> {
         val prospeccao = prospeccaoService.criar(
             request.processoSemente,
@@ -63,7 +71,13 @@ class ProspeccaoController(
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Consultar status de prospeccao")
+    @Operation(
+        summary = "Consultar status de prospecção",
+        description = "Retorna o status atual da prospecção, incluindo contadores de progresso " +
+            "(processos visitados, credores encontrados, leads qualificados). " +
+            "Quando a prospecção está EM_ANDAMENTO, a resposta inclui o header Retry-After=10 para orientar o polling. " +
+            "Quando CONCLUIDA, inclui a lista completa de leads qualificados com score e detalhes do precatório."
+    )
     fun getStatus(@PathVariable id: Long): ResponseEntity<ProspeccaoStatusDTO> {
         val prospeccao = prospeccaoRepository.findById(id)
             .orElseThrow { ProspeccaoNaoEncontradaException(id) }
@@ -114,7 +128,11 @@ class ProspeccaoController(
     }
 
     @GetMapping
-    @Operation(summary = "Listar todas as prospeccoes")
+    @Operation(
+        summary = "Listar todas as prospecções",
+        description = "Retorna lista paginada de todas as prospecções realizadas, com filtro opcional por status " +
+            "(EM_ANDAMENTO, CONCLUIDA, ERRO). Cada item inclui contadores de progresso e datas de início/fim."
+    )
     fun listar(
         @RequestParam(required = false) status: StatusProspeccao?,
         pageable: Pageable

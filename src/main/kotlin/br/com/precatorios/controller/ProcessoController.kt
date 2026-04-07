@@ -22,11 +22,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/processo")
 @Validated
-@Tag(name = "Processos", description = "e-SAJ process lookup")
+@Tag(name = "Processos", description = "Consulta de processos no e-SAJ do TJ-SP. Permite buscar detalhes de um processo pelo número CNJ ou pesquisar processos por nome, CPF ou número. Retorna partes envolvidas, incidentes (precatórios vinculados), classe, assunto, foro, vara e juiz.")
 class ProcessoController(private val esajScraper: EsajScraper) {
 
     @GetMapping("/{numero}")
-    @Operation(summary = "Fetch process details from e-SAJ")
+    @Operation(
+        summary = "Consultar detalhes de processo no e-SAJ",
+        description = "Busca informações completas de um processo no portal e-SAJ do TJ-SP pelo número no formato CNJ " +
+            "(NNNNNNN-DD.AAAA.J.TR.OOOO). Retorna classe processual, assunto, foro, vara, juiz, valor da ação, " +
+            "lista de partes com seus advogados e incidentes vinculados (incluindo precatórios). " +
+            "O campo 'dadosCompletos' indica se todos os campos foram extraídos com sucesso."
+    )
     fun getProcesso(
         @PathVariable
         @Pattern(
@@ -40,7 +46,12 @@ class ProcessoController(private val esajScraper: EsajScraper) {
     }
 
     @GetMapping("/buscar")
-    @Operation(summary = "Search processes by name in e-SAJ")
+    @Operation(
+        summary = "Pesquisar processos por nome, CPF ou número no e-SAJ",
+        description = "Realiza busca no e-SAJ do TJ-SP por nome da parte (mínimo 3 caracteres), CPF ou número do processo. " +
+            "É obrigatório informar pelo menos um parâmetro de busca. Retorna lista de processos encontrados " +
+            "com número, classe, assunto e foro de cada resultado."
+    )
     fun buscar(
         @RequestParam(required = false) @Size(min = 3, message = "Nome deve ter pelo menos 3 caracteres") nome: String?,
         @RequestParam(required = false) cpf: String?,

@@ -14,11 +14,17 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/datajud")
-@Tag(name = "DataJud", description = "DataJud CNJ API proxy")
+@Tag(name = "DataJud", description = "Proxy para a API pública do DataJud (CNJ). Permite consultar metadados de processos judiciais via Elasticsearch do Conselho Nacional de Justiça, incluindo classe, assunto, órgão julgador e data de ajuizamento.")
 class DataJudController(private val dataJudClient: DataJudClient) {
 
     @PostMapping("/buscar")
-    @Operation(summary = "Search DataJud by process number or municipality")
+    @Operation(
+        summary = "Buscar processos no DataJud por número ou município",
+        description = "Consulta a API Elasticsearch do DataJud (CNJ) para obter metadados de processos judiciais. " +
+            "Aceita busca por número do processo (formato CNJ) ou código do município IBGE. " +
+            "Retorna classe processual, assunto, órgão julgador e data de ajuizamento de cada resultado encontrado. " +
+            "É obrigatório informar pelo menos um dos parâmetros: numeroProcesso ou codigoMunicipioIBGE."
+    )
     fun buscar(@RequestBody request: DataJudBuscarRequestDTO): ResponseEntity<DataJudBuscarResponseDTO> {
         val result = when {
             request.numeroProcesso != null -> dataJudClient.buscarPorNumeroProcesso(request.numeroProcesso)

@@ -22,13 +22,16 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/leads")
-@Tag(name = "Leads", description = "Lead management — list, filter, and update contact status")
+@Tag(name = "Leads", description = "Gestão de leads — listagem com filtros, paginação e atualização de status de contato. Leads são credores qualificados descobertos durante a prospecção, cada um com score de 0 a 100.")
 class LeadController(private val leadService: LeadService) {
 
     @GetMapping
     @Operation(
-        summary = "List leads with optional filters",
-        description = "Returns paginated leads. Default sort: score DESC. Zero-score leads excluded unless incluirZero=true."
+        summary = "Listar leads com filtros opcionais",
+        description = "Retorna leads paginados com ordenação padrão por score decrescente. " +
+            "Leads com score zero são excluídos por padrão (use incluirZero=true para incluí-los). " +
+            "Filtros disponíveis: scoreMinimo (nota mínima), statusContato (NAO_CONTACTADO, EM_CONTATO, CONVERTIDO, DESCARTADO), " +
+            "entidadeDevedora (busca parcial por nome da entidade). Todos os filtros operam com lógica AND."
     )
     fun listar(
         @RequestParam(required = false) scoreMinimo: Int?,
@@ -43,8 +46,9 @@ class LeadController(private val leadService: LeadService) {
 
     @PatchMapping("/{id}/status")
     @Operation(
-        summary = "Update lead contact status",
-        description = "Updates statusContato and optional observacao note"
+        summary = "Atualizar status de contato do lead",
+        description = "Atualiza o status de contato do lead (NAO_CONTACTADO, EM_CONTATO, CONVERTIDO, DESCARTADO) " +
+            "e permite adicionar uma observação textual opcional. Retorna 404 caso o lead não seja encontrado."
     )
     fun atualizarStatus(
         @PathVariable id: Long,

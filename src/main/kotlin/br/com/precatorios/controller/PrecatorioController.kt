@@ -14,11 +14,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/precatorio")
 @Validated
-@Tag(name = "Precatorios", description = "CAC/SCP precatorio lookup")
+@Tag(name = "Precatórios", description = "Consulta de precatórios no portal CAC/SCP do TJ-SP. Retorna dados completos do precatório incluindo valor original, valor atualizado, entidade devedora, natureza (alimentar/comum), status de pagamento, posição cronológica e data de expedição.")
 class PrecatorioController(private val cacScraper: CacScraper) {
 
     @GetMapping("/{numero}")
-    @Operation(summary = "Fetch precatorio data from CAC/SCP")
+    @Operation(
+        summary = "Consultar dados de precatório no CAC/SCP",
+        description = "Busca informações detalhadas de um precatório no portal CAC/SCP do TJ-SP pelo número do precatório. " +
+            "Retorna valor original, valor atualizado, entidade devedora, natureza, status de pagamento, " +
+            "posição cronológica e data de expedição. O campo 'dadosCompletos' indica se todos os campos foram extraídos " +
+            "com sucesso; caso contrário, 'missingFields' lista os campos que não puderam ser obtidos."
+    )
     fun getPrecatorio(
         @PathVariable numero: String
     ): ResponseEntity<PrecatorioResponseDTO> {
