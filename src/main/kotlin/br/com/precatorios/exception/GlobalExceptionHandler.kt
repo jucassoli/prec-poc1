@@ -4,11 +4,42 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
 @ControllerAdvice
 class GlobalExceptionHandler {
+
+    @ExceptionHandler(TooManyRequestsException::class)
+    fun handleTooManyRequests(
+        ex: TooManyRequestsException,
+        request: HttpServletRequest
+    ): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.TOO_MANY_REQUESTS)
+            .body(ErrorResponse(429, ex.message ?: "Too many requests"))
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadable(
+        ex: HttpMessageNotReadableException,
+        request: HttpServletRequest
+    ): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(400, "Corpo da requisicao invalido"))
+    }
+
+    @ExceptionHandler(LeadNaoEncontradoException::class)
+    fun handleLeadNaoEncontrado(
+        ex: LeadNaoEncontradoException,
+        request: HttpServletRequest
+    ): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(404, ex.message ?: "Lead nao encontrado"))
+    }
 
     @ExceptionHandler(ProcessoNaoEncontradoException::class)
     fun handleProcessoNaoEncontrado(

@@ -28,6 +28,9 @@ class Lead {
     @Column(name = "data_criacao")
     var dataCriacao: LocalDateTime? = null
 
+    @Column(name = "observacao", columnDefinition = "TEXT")
+    var observacao: String? = null
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prospeccao_id")
     var prospeccao: Prospeccao? = null
