@@ -26,7 +26,7 @@ Given a seed process number, automatically return a scored list of qualified pre
 - [ ] Scrape e-SAJ (public) for process parties, precatório incidents, and procedural updates using Jsoup
 - [ ] Scrape CAC/SCP portal (ASP.NET/ViewState) for precatório value, payment status, and chronological position
 - [ ] Query DataJud API (CNJ Elasticsearch) for process metadata enrichment
-- [x] Expose REST endpoints for prospection (async), process lookup, precatório lookup, DataJud proxy, and lead management — *Prospection endpoints validated in Phase 4; process/precatório/DataJud endpoints validated in Phase 1*
+- [x] Expose REST endpoints for prospection (async), process lookup, precatório lookup, DataJud proxy, and lead management — *Prospection endpoints validated in Phase 4; process/precatório/DataJud endpoints validated in Phase 1; Lead management endpoints validated in Phase 5*
 - [ ] Respect rate limits: 2s delay between requests, exponential backoff on failures (3 retries), 60s pause on HTTP 429
 
 ### Out of Scope
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-06 after Phase 4: BFS Prospection Engine & API complete*
+*Last updated: 2026-04-07 after Phase 5: Leads API and Hardening complete*
