@@ -12,6 +12,7 @@ import br.com.precatorios.scraper.CacScraper
 import br.com.precatorios.scraper.EsajScraper
 import br.com.precatorios.scraper.PrecatorioScraped
 import br.com.precatorios.service.ScoringService
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Async
@@ -29,6 +30,7 @@ class BfsProspeccaoEngine(
     private val processoRepository: ProcessoRepository,
     private val credorRepository: CredorRepository,
     private val precatorioRepository: PrecatorioRepository,
+    private val objectMapper: ObjectMapper,
     @Value("\${prospeccao.max-search-results-per-creditor:10}") private val maxSearchResults: Int
 ) {
 
@@ -79,7 +81,7 @@ class BfsProspeccaoEngine(
                             this.vara = scraped.vara
                             this.juiz = scraped.juiz
                             this.valorAcao = scraped.valorAcao
-                            this.dadosBrutos = scraped.rawHtml
+                            this.dadosBrutos = objectMapper.writeValueAsString(mapOf("html" to scraped.rawHtml))
                             this.dataColeta = LocalDateTime.now()
                         }
                         processoRepository.save(novo)
@@ -188,7 +190,7 @@ class BfsProspeccaoEngine(
             this.natureza = scraped.natureza
             this.statusPagamento = scraped.statusPagamento
             this.posicaoCronologica = scraped.posicaoCronologica
-            this.dadosBrutos = scraped.rawHtml
+            this.dadosBrutos = objectMapper.writeValueAsString(mapOf("html" to scraped.rawHtml))
             this.dataColeta = LocalDateTime.now()
             this.credor = credor
         }
