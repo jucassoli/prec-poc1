@@ -135,6 +135,9 @@ resilience4j:
         exponential-backoff-multiplier: 2.0
 
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
