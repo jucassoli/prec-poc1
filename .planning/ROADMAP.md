@@ -104,9 +104,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Leads REST endpoints (LeadController GET /leads with JOIN FETCH, pagination, filters, PATCH /leads/{id}/status)
-- [ ] 05-02-PLAN.md — Error handling hardening (TooManyRequestsException 429, HttpMessageNotReadableException 400, comprehensive tests)
-- [ ] 05-03-PLAN.md — Integration tests and operational hardening (Testcontainers full-stack test, StaleJobRecoveryRunner, DataJudHealthIndicator)
+- [x] 05-01-PLAN.md — Leads REST endpoints (LeadController GET /leads with JOIN FETCH, pagination, filters, PATCH /leads/{id}/status)
+- [x] 05-02-PLAN.md — Error handling hardening (TooManyRequestsException 429, HttpMessageNotReadableException 400, comprehensive tests)
+- [x] 05-03-PLAN.md — Integration tests and operational hardening (Testcontainers full-stack test, StaleJobRecoveryRunner, DataJudHealthIndicator)
 
 ## Progress
 
