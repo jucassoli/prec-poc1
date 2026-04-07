@@ -112,3 +112,9 @@ Plan 05-02 (this plan) verified the implementation meets all acceptance criteria
 ---
 *Phase: 05-leads-api-and-hardening*
 *Completed: 2026-04-07*
+
+## Self-Check: PASSED
+
+- File check: 05-02-SUMMARY.md FOUND, GlobalExceptionHandler.kt FOUND, GlobalExceptionHandlerTest.kt FOUND
+- Commit check: 6abf690 (feat Task 1), 0bb841e (test Task 2), b837686 (docs SUMMARY) — all 3 found
+- Test verification: `./gradlew test --tests "br.com.precatorios.exception.GlobalExceptionHandlerTest"` — 9 tests, 0 failures, 0 errors
